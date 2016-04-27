@@ -28,11 +28,15 @@ public class PalindromeChecker extends AppCompatActivity {
      * @param vw is the button that is associated with this method
      */
     public void palindromeCheck(View vw){
-
+        String userInput = edtxtUserWord.getText().toString();
         //Set a variable equal to the user input
 
-        //boolean isPalindrome = checkForPalindrome(userInput, 0, false);
-
+        boolean isPalindrome = checkForPalindrome(userInput, 0);
+        if (isPalindrome == false){
+            txtvwResult.setText("Your word is not a palindrome!");
+        }else{
+            txtvwResult.setText("Your word is a palindrome, YAYYYYY!");
+        }
         //Check whether isPalindrome is true or false and print out a statement accordingly
 
     }
@@ -42,11 +46,21 @@ public class PalindromeChecker extends AppCompatActivity {
      * palindrome
      * @param word is the word that will be checked for whether it is a palindrome or not
      * @param index is the index currently being checked
-     * @param result is whether the word is a palindrome or not
      */
-    private boolean checkForPalindrome(String word, int index, boolean result){
+    private boolean checkForPalindrome(String word, int index){
 
+        boolean result = false;
+        int indexFromEnd = edtxtUserWord.length()-(index + 1);
 
+        if (word.charAt(index) == word.charAt(indexFromEnd)){
+            if (index == indexFromEnd || index == indexFromEnd-1){
+                result = true;
+            } else{
+                result = checkForPalindrome(word,index+1);
+            }
+        }else{
+            result = false;
+        }
         /**
          * Set a variable called indexFromEnd that is the corresponding index from the end that
          * matches the index that you're at (i.e. word length = 10: index = 0 then indexFromEnd = 9,
